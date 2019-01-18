@@ -1,4 +1,4 @@
-import 'package:timestudyapp/models/donor.dart';
+import 'package:timestudyapp/models/task.dart';
 
 class Study {
   String name;
@@ -6,13 +6,13 @@ class Study {
   String type;
   String team;
   String location;
-  List<Donor> donors;
+  List<Task> tasks;
 
   Study(
-      {this.name, this.date, this.type, this.team, this.location, this.donors});
+      {this.name, this.date, this.type, this.team, this.location, this.tasks});
 
   factory Study.fromJson(Map<String, dynamic> json) {
-    var donorsList = json['donors'] as List;
+    var tasksList = json['tasks'] as List;
 
     return Study(
         name: json['name'],
@@ -20,7 +20,7 @@ class Study {
         type: json['type'],
         team: json['team'],
         location: json['location'],
-        donors: donorsList.map((i) => Donor.fromJson(i)).toList());
+        tasks: tasksList.map((i) => Task.fromJson(i)).toList());
   }
 
   Map<String, dynamic> toJson() => {
@@ -29,6 +29,6 @@ class Study {
         'type': type,
         'team': team,
         'location': location,
-        'donors': donors
+        'tasks': tasks
       };
 }

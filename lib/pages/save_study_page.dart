@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timestudyapp/models/donor.dart';
+import 'package:timestudyapp/models/task.dart';
 import 'package:timestudyapp/models/study.dart';
 import 'package:timestudyapp/viewmodels/study_viewmodel.dart';
 
@@ -42,7 +42,7 @@ class SaveStudyPageState extends State<SaveStudyPage> {
           type: "",
           team: "",
           location: "",
-          donors: new List<Donor>());
+          tasks: new List<Task>());
     }
     nameField = new TextFormField(
       controller: nameController,
@@ -197,15 +197,17 @@ class SaveStudyPageState extends State<SaveStudyPage> {
             study.type = typeController.text;
             study.team = teamController.text;
             study.location = locationController.text;
-
             if (widget.selected == null) {
+              study.tasks = List.from(StudyViewModel.tasks);
               StudyViewModel.studies.add(study);
             } else {
-              for (int i = 0; i < study.donors.length; i++) {
-                study.donors[i].date = dateController.text;
-                study.donors[i].type = typeController.text;
-                study.donors[i].team = teamController.text;
-                study.donors[i].location = locationController.text;
+              for (int i = 0; i < study.tasks.length; i++) {
+                for (int j = 0; j < study.tasks[i].donors.length; j++) {
+                  study.tasks[i].donors[j].date = dateController.text;
+                  study.tasks[i].donors[j].type = typeController.text;
+                  study.tasks[i].donors[j].team = teamController.text;
+                  study.tasks[i].donors[j].location = locationController.text;
+                }
               }
             }
             await StudyViewModel.saveFile();

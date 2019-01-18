@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:timestudyapp/models/task.dart';
+import 'package:timestudyapp/models/donor.dart';
 import 'package:timestudyapp/viewmodels/study_viewmodel.dart';
 import 'package:timestudyapp/widgets/timer_text.dart';
 
 class TimerPage extends StatefulWidget {
-  final Task selected;
+  final Donor selected;
 
   TimerPage({Key key, this.selected}) : super(key: key);
 
@@ -12,15 +12,15 @@ class TimerPage extends StatefulWidget {
 }
 
 class TimerPageState extends State<TimerPage> {
-  Task task;
+  Donor donor;
   List<TimerText> timers;
   TimerText waitingTimer;
 
   @override
   void initState() {
-    task = widget.selected;
+    donor = widget.selected;
     timers = new List<TimerText>();
-    for (int i = 0; i < task.stages.length; i++) {
+    for (int i = 0; i < donor.stages.length; i++) {
       timers.add(new TimerText(
         stopwatch: new Stopwatch(),
       ));
@@ -41,7 +41,7 @@ class TimerPageState extends State<TimerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(task.name),
+          title: Text(donor.name),
         ),
         body: Material(
           child: Padding(
@@ -51,10 +51,10 @@ class TimerPageState extends State<TimerPage> {
                     child: Center(
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: task.stages.length,
+                    itemCount: donor.stages.length,
                     itemBuilder: (context, int index) {
                       return buildTaskWatch(
-                          task.stages[index].name, timers[index]);
+                          donor.stages[index].name, timers[index]);
                     },
                   ),
                 )),
@@ -65,13 +65,13 @@ class TimerPageState extends State<TimerPage> {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.save),
           onPressed: () async {
-            task.measuredTime = 0;
-            for (int i = 0; i < task.stages.length; i++) {
-              task.stages[i].time = timers[i].stopwatch.elapsedMilliseconds;
-              task.measuredTime += timers[i].stopwatch.elapsedMilliseconds;
+            donor.measuredTime = 0;
+            for (int i = 0; i < donor.stages.length; i++) {
+              donor.stages[i].time = timers[i].stopwatch.elapsedMilliseconds;
+              donor.measuredTime += timers[i].stopwatch.elapsedMilliseconds;
             }
-            task.waitedTime = waitingTimer.stopwatch.elapsedMilliseconds;
-            task.elapsedTime = task.measuredTime + task.elapsedTime;
+            donor.waitedTime = waitingTimer.stopwatch.elapsedMilliseconds;
+            donor.elapsedTime = donor.measuredTime + donor.elapsedTime;
             await StudyViewModel.saveFile();
             Navigator.of(context).pop();
           },

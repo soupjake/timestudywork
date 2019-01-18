@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:async' show Future;
 import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:timestudyapp/models/donor.dart';
+import 'package:timestudyapp/models/stage.dart';
 import 'package:timestudyapp/models/study.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,9 +38,9 @@ class StudyViewModel {
   }
 
   static Future getTasks() async {
-    List jsonParsed = json.decode(await rootBundle.loadString('assets/tasks.json'));
+    List jsonParsed =
+        json.decode(await rootBundle.loadString('assets/tasks.json'));
     tasks = jsonParsed.map((i) => new Task.fromJson(i)).toList();
-    print(tasks.length);
   }
 
   static bool checkName(String name) {
@@ -54,6 +54,11 @@ class StudyViewModel {
     return match;
   }
 
+  static List<Stage> copyStages(Task task) {
+    List stagesParsed = json.decode(json.encode(task.stages));
+    return stagesParsed.map((i) => new Stage.fromJson(i)).toList();
+  }
+
   static String milliToElapsedString(int milliseconds) {
     final int hundreds = (milliseconds / 10).truncate();
     final int seconds = (hundreds / 100).truncate();
@@ -65,12 +70,12 @@ class StudyViewModel {
   }
 
   static Future exportData(String name) async {
-    List<Donor> donors = new List<Donor>();
-    for(int i = 0; i < studies.length; i++) {
-      donors.addAll(studies[i].donors);
+    List<Task> tasks = new List<Task>();
+    for (int i = 0; i < studies.length; i++) {
+      tasks.addAll(studies[i].tasks);
     }
-    String url = 'mailto:?subject=' + name + ' Data&body=' + json.encode(donors);
-    if(await canLaunch(url)){
+    String url = 'mailto:?subject=' + name + ' Data&body=' + json.encode(tasks);
+    if (await canLaunch(url)) {
       await launch(url);
     } else {
       throw 'Could not launch $url';

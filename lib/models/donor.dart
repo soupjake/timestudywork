@@ -1,4 +1,4 @@
-import 'package:timestudyapp/models/task.dart';
+import 'package:timestudyapp/models/stage.dart';
 
 class Donor {
   String name;
@@ -6,8 +6,11 @@ class Donor {
   String type;
   String team;
   String location;
+  int measuredTime;
+  int waitedTime;
   int elapsedTime;
-  List<Task> tasks;
+  String note;
+  List<Stage> stages;
 
   Donor(
       {this.name,
@@ -15,11 +18,14 @@ class Donor {
       this.type,
       this.team,
       this.location,
+      this.measuredTime,
+      this.waitedTime,
       this.elapsedTime,
-      this.tasks});
+      this.note,
+      this.stages});
 
   factory Donor.fromJson(Map<String, dynamic> json) {
-    var tasksList = json['tasks'] as List;
+    var stagesList = json['stages'] as List;
 
     return Donor(
         name: json['name'],
@@ -27,8 +33,11 @@ class Donor {
         type: json['type'],
         team: json['team'],
         location: json['location'],
+        measuredTime: json['measuredTime'],
+        waitedTime: json['waitedTime'],
         elapsedTime: json['elapsedTime'],
-        tasks: tasksList.map((i) => Task.fromJson(i)).toList());
+        note: json['note'],
+        stages: stagesList.map((i) => Stage.fromJson(i)).toList());
   }
 
   Map<String, dynamic> toJson() => {
@@ -37,7 +46,10 @@ class Donor {
         'type': type,
         'team': team,
         'location': location,
+        'measuredTime': measuredTime,
+        'waitedTime': waitedTime,
         'elapsedTime': elapsedTime,
-        'tasks': tasks
+        'note': note,
+        'stages': stages
       };
 }

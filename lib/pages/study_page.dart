@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:timestudyapp/models/donor.dart';
 import 'package:timestudyapp/models/study.dart';
-import 'package:timestudyapp/models/task.dart';
-import 'package:timestudyapp/pages/task_page.dart';
+import 'package:timestudyapp/pages/donor_page.dart';
 import 'package:timestudyapp/viewmodels/study_viewmodel.dart';
 
 class StudyPage extends StatefulWidget {
@@ -60,62 +59,56 @@ class StudyPageState extends State<StudyPage> {
         child: Column(
           children: <Widget>[
             Expanded(
-                child: study.donors.length > 0
-                    ? ListView.builder(
-                        itemCount: study.donors.length,
-                        itemBuilder: (context, int donorIndex) {
-                          return ExpansionTile(
-                            title: Text(study.donors[donorIndex].name),
-                            children: <Widget>[
-                              ListView.builder(
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                                physics: ClampingScrollPhysics(),
-                                itemCount:
-                                    study.donors[donorIndex].tasks.length,
-                                itemBuilder: (context, int taskIndex) {
-                                  return ListTile(
-                                    title: Text(study.donors[donorIndex]
-                                        .tasks[taskIndex].name),
-                                    subtitle: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text('M: ' +
-                                            StudyViewModel.milliToElapsedString(
-                                                study
-                                                    .donors[donorIndex]
-                                                    .tasks[taskIndex]
-                                                    .measuredTime)),
-                                        Text('W: ' +
-                                            StudyViewModel.milliToElapsedString(
-                                                study
-                                                    .donors[donorIndex]
-                                                    .tasks[taskIndex]
-                                                    .waitedTime)),
-                                        Text('E: ' +
-                                            StudyViewModel.milliToElapsedString(
-                                                study
-                                                    .donors[donorIndex]
-                                                    .tasks[taskIndex]
-                                                    .elapsedTime)),
-                                      ],
-                                    ),
-                                    onTap: () async {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => TaskPage(
-                                                  selected: study
-                                                      .donors[donorIndex]
-                                                      .tasks[taskIndex])));
-                                    },
-                                  );
+                child: ListView.builder(
+              itemCount: study.tasks.length,
+              itemBuilder: (context, int taskIndex) {
+                return ExpansionTile(
+                  title: Text(study.tasks[taskIndex].name),
+                  children: <Widget>[
+                    study.tasks[taskIndex].donors.length > 0
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 24.0),
+                            physics: ClampingScrollPhysics(),
+                            itemCount: study.tasks[taskIndex].donors.length,
+                            itemBuilder: (context, int donorIndex) {
+                              return ListTile(
+                                title: Text(study
+                                    .tasks[taskIndex].donors[donorIndex].name),
+                                subtitle: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text('M: ' +
+                                        StudyViewModel.milliToElapsedString(
+                                            study
+                                                .tasks[taskIndex]
+                                                .donors[donorIndex]
+                                                .measuredTime)),
+                                    Text('W: ' +
+                                        StudyViewModel.milliToElapsedString(
+                                            study
+                                                .tasks[taskIndex]
+                                                .donors[donorIndex]
+                                                .waitedTime)),
+                                    Text('E: ' +
+                                        StudyViewModel.milliToElapsedString(
+                                            study
+                                                .tasks[taskIndex]
+                                                .donors[donorIndex]
+                                                .elapsedTime)),
+                                  ],
+                                ),
+                                onTap: () async {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DonorPage(
+                                              selected: study.tasks[taskIndex]
+                                                  .donors[donorIndex])));
                                 },
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.delete),
-                                onPressed: () async {
+                                onLongPress: () async {
                                   await showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
@@ -129,10 +122,12 @@ class StudyPageState extends State<StudyPage> {
                                                 },
                                               ),
                                               FlatButton(
-                                                child: Text('Accept'),
+                                                child: Text('Delete'),
+                                                textColor: Colors.red,
                                                 onPressed: () async {
                                                   setState(() {
-                                                    study.donors
+                                                    study
+                                                        .tasks[taskIndex].donors
                                                         .removeAt(donorIndex);
                                                   });
 
@@ -144,55 +139,55 @@ class StudyPageState extends State<StudyPage> {
                                             ],
                                           ));
                                 },
-                              )
-                            ],
-                          );
-                        },
-                      )
-                    : Center(
-                        child: Text('Add a donor using the circle button!')))
+                              );
+                            },
+                          )
+                        : Text('Add a donor using the + button below!'),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () async {
+                        setState(() {
+                          study.tasks[taskIndex].donors.add(new Donor(
+                              name: generateName(taskIndex),
+                              date: study.date,
+                              type: study.type,
+                              team: study.team,
+                              location: study.location,
+                              measuredTime: 0,
+                              waitedTime: 0,
+                              elapsedTime: 0,
+                              note: '',
+                              stages: StudyViewModel.copyStages(
+                                  study.tasks[taskIndex])));
+                        });
+                        await StudyViewModel.saveFile();
+                      },
+                    )
+                  ],
+                );
+              },
+            ))
           ],
         ),
       )),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () async {
-          await showDialog(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                    title: Text('Add donor'),
-                    content: nameField,
-                    actions: <Widget>[
-                      FlatButton(
-                        child: Text('Cancel'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      FlatButton(
-                        child: Text('Accept'),
-                        onPressed: () async {
-                          if (nameController.text != '') {
-                            setState(() {
-                              study.donors.add(new Donor(
-                                  name: nameController.text,
-                                  date: study.date,
-                                  type: study.type,
-                                  team: study.team,
-                                  location: study.location,
-                                  tasks:
-                                      List<Task>.from(StudyViewModel.tasks)));
-                            });
-                            await StudyViewModel.saveFile();
-                            nameController.clear();
-                            Navigator.of(context).pop();
-                          }
-                        },
-                      )
-                    ],
-                  ));
-        },
-      ),
     );
+  }
+
+  String generateName(int taskIndex) {
+    String name = 'Donor ';
+    if (study.tasks[taskIndex].donors.length > 0) {
+      int lastNameInt = int.parse(study.tasks[taskIndex]
+          .donors[study.tasks[taskIndex].donors.length - 1].name
+          .substring(study
+                  .tasks[taskIndex]
+                  .donors[study.tasks[taskIndex].donors.length - 1]
+                  .name
+                  .length -
+              1));
+      name += (lastNameInt + 1).toString();
+    } else {
+      name += '1';
+    }
+    return name;
   }
 }

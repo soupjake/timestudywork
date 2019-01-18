@@ -33,7 +33,8 @@ class HomePageState extends State<HomePage> {
                             children: <Widget>[
                               ListView(
                                 shrinkWrap: true,
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24.0),
                                 physics: ClampingScrollPhysics(),
                                 children: <Widget>[
                                   ListTile(
@@ -74,18 +75,6 @@ class HomePageState extends State<HomePage> {
                                         Text('Location:'),
                                         Text(StudyViewModel
                                             .studies[index].location)
-                                      ],
-                                    ),
-                                  ),
-                                  ListTile(
-                                    title: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text('Donors:'),
-                                        Text(StudyViewModel
-                                            .studies[index].donors.length
-                                            .toString())
                                       ],
                                     ),
                                   ),

@@ -1,39 +1,23 @@
+import 'package:timestudyapp/models/donor.dart';
 import 'package:timestudyapp/models/stage.dart';
 
 class Task {
   String name;
-  int measuredTime;
-  int waitedTime;
-  int elapsedTime;
-  String note;
   List<Stage> stages;
+  List<Donor> donors;
 
-  Task(
-      {this.name,
-      this.measuredTime,
-      this.waitedTime,
-      this.elapsedTime,
-      this.note,
-      this.stages});
+  Task({this.name, this.stages, this.donors});
 
   factory Task.fromJson(Map<String, dynamic> json) {
     var stagesList = json['stages'] as List;
+    var donorsList = json['donors'] as List;
 
     return Task(
         name: json['name'],
-        measuredTime: json['measuredTime'],
-        waitedTime: json['waitedTime'],
-        elapsedTime: json['elapsedTime'],
-        note: json['note'],
-        stages: stagesList.map((i) => Stage.fromJson(i)).toList());
+        stages: stagesList.map((i) => Stage.fromJson(i)).toList(),
+        donors: donorsList.map((i) => Donor.fromJson(i)).toList());
   }
 
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'measuredTime': measuredTime,
-        'waitedTime': waitedTime,
-        'elapsedTime': elapsedTime,
-        'note': note,
-        'stages': stages
-      };
+  Map<String, dynamic> toJson() =>
+      {'name': name, 'stages': stages, 'donors': donors};
 }
