@@ -1,0 +1,287 @@
+[
+   {
+      "name":"Registration",
+      "measuredTime":0,
+      "waitedTime":0,
+      "elapsedTime":0,
+      "note":"",
+      "stages":[
+         {
+            "name":"Registration",
+            "time":0,
+            "attributes":[
+               {
+                  "name":"Appointment",
+                  "value":false
+               },
+               {
+                  "name":"Card/Letter",
+                  "value":false
+               },
+               {
+                  "name":"New Donor",
+                  "value":false
+               },
+               {
+                  "name":"New Record",
+                  "value":false
+               },
+               {
+                  "name":"CCA Deferred",
+                  "value":false
+               },
+               {
+                  "name":"RN Reg Query",
+                  "value":false
+               },
+               {
+                  "name":"RN Screening Query",
+                  "value":false
+               },
+               {
+                  "name":"RN Deferred",
+                  "value":false
+               }
+            ]
+         }
+      ]
+   },
+   {
+      "name":"SAHH",
+      "measuredTime":0,
+      "waitedTime":0,
+      "elapsedTime":0,
+      "note":"",
+      "stages":[
+         {
+            "name":"SAHH",
+            "time":0,
+            "attributes":[
+               {
+                  "name":"New Donor",
+                  "value":false
+               },
+               {
+                  "name":"Need Assistance",
+                  "value":false
+               }
+            ]
+         }
+      ]
+   },
+   {
+      "name":"Screening",
+      "measuredTime":0,
+      "waitedTime":0,
+      "elapsedTime":0,
+      "note":"",
+      "stages":[
+         {
+            "name":"Screening",
+            "time":0,
+            "attributes":[
+               {
+                  "name":"New Donor",
+                  "value":false
+               },
+               {
+                  "name":"Bone Marrow",
+                  "value":false
+               },
+               {
+                  "name":"CCA Deferred",
+                  "value":false
+               },
+               {
+                  "name":"RN Query",
+                  "value":false
+               },
+               {
+                  "name":"RN Deferred",
+                  "value":false
+               }
+            ]
+         },
+         {
+            "name":"Copper Sulphate",
+            "time":0,
+            "attributes":[
+               {
+                  "name":"Failed",
+                  "value":false
+               },
+               {
+                  "name":"Overlap",
+                  "value":false
+               }
+            ]
+         },
+         {
+            "name":"Haemocue",
+            "time":0,
+            "attributes":[
+               {
+                  "name":"Failed",
+                  "value":false
+               },
+               {
+                  "name":"FBC Screening",
+                  "value":false
+               },
+               {
+                  "name":"FBC Chair",
+                  "value":false
+               }
+            ]
+         }
+      ]
+   },
+   {
+      "name":"Pod Area",
+      "measuredTime":0,
+      "waitedTime":0,
+      "elapsedTime":0,
+      "note":"",
+      "stages":[
+         {
+            "name":"Pre Needle",
+            "time":0,
+            "attributes":[
+               {
+                  "name":"Non-VP",
+                  "value":false
+               },
+               {
+                  "name":"Overlap",
+                  "value":false
+               },
+               {
+                  "name":"Adverse Event",
+                  "value":false
+               },
+               {
+                  "name":"RN Needed",
+                  "value":false
+               }
+            ]
+         },
+         {
+            "name":"Needle In",
+            "time":0,
+            "attributes":[
+               {
+                  "name":"First Time",
+                  "value":false
+               },
+               {
+                  "name":"Assistance Needed",
+                  "value":false
+               },
+               {
+                  "name":"Needle Intervention",
+                  "value":false
+               },
+               {
+                  "name":"Needle Intervention",
+                  "value":false
+               },
+               {
+                  "name":"Adverse Event",
+                  "value":false
+               },
+               {
+                  "name":"Change of arm",
+                  "value":false
+               },
+               {
+                  "name":"FVP",
+                  "value":false
+               },
+               {
+                  "name":"RN Needed",
+                  "value":false
+               }
+            ]
+         },
+         {
+            "name":"Bleed",
+            "time":0,
+            "attributes":[
+               {
+                  "name":"FBC",
+                  "value":false
+               },
+               {
+                  "name":"Needle Intervention",
+                  "value":false
+               },
+               {
+                  "name":"Adverse Event",
+                  "value":false
+               },
+               {
+                  "name":"RN Needed",
+                  "value":false
+               }
+            ]
+         },
+         {
+            "name":"Rest",
+            "time":0,
+            "attributes":[
+               {
+                  "name":"Adverse Event",
+                  "value":false
+               },
+               {
+                  "name":"RN Needed",
+                  "value":false
+               },
+               {
+                  "name":"Not Bled",
+                  "value":false
+               }
+            ]
+         }
+      ]
+   },
+   {
+      "name":"Tea Table",
+      "measuredTime":0,
+      "waitedTime":0,
+      "elapsedTime":0,
+      "note":"",
+      "stages":[
+         {
+            "name":"Tea Table",
+            "time":0,
+            "attributes":[
+               {
+                  "name":"Did Not Stay",
+                  "value":false
+               },
+               {
+                  "name":"New Donor",
+                  "value":false
+               },
+               {
+                  "name":"Adverse Sheet",
+                  "value":false
+               },
+               {
+                  "name":"Returned To Chair",
+                  "value":false
+               },
+               {
+                  "name":"RN Needed",
+                  "value":false
+               },
+               {
+                  "name":"Made Appointment",
+                  "value":false
+               }
+            ]
+         }
+      ]
+   }
+]
