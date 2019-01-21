@@ -72,7 +72,7 @@ class TimerPageState extends State<TimerPage> {
               donor.measuredTime += timers[i].stopwatch.elapsedMilliseconds;
             }
             donor.waitedTime = waitingTimer.stopwatch.elapsedMilliseconds;
-            donor.elapsedTime = donor.measuredTime + donor.elapsedTime;
+            donor.elapsedTime = donor.measuredTime + donor.waitedTime;
             await StudyViewModel.saveFile();
             Navigator.of(context).pop();
           },
