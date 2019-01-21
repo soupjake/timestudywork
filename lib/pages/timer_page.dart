@@ -66,6 +66,7 @@ class TimerPageState extends State<TimerPage> {
           child: Icon(Icons.save),
           onPressed: () async {
             donor.measuredTime = 0;
+            donor.elapsedTime = 0;
             for (int i = 0; i < donor.stages.length; i++) {
               donor.stages[i].time = timers[i].stopwatch.elapsedMilliseconds;
               donor.measuredTime += timers[i].stopwatch.elapsedMilliseconds;
