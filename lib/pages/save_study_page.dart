@@ -175,15 +175,15 @@ class SaveStudyPageState extends State<SaveStudyPage> {
             child: Column(
               children: <Widget>[
                 Padding(
-                    padding: EdgeInsets.only(bottom: 8.0), child: nameField),
+                    padding: EdgeInsets.only(bottom: 24.0), child: nameField),
                 Padding(
-                    padding: EdgeInsets.only(bottom: 8.0), child: dateField),
+                    padding: EdgeInsets.only(bottom: 24.0), child: dateField),
                 Padding(
-                    padding: EdgeInsets.only(bottom: 8.0), child: typeField),
+                    padding: EdgeInsets.only(bottom: 24.0), child: typeField),
                 Padding(
-                    padding: EdgeInsets.only(bottom: 8.0), child: teamField),
+                    padding: EdgeInsets.only(bottom: 24.0), child: teamField),
                 Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
+                    padding: EdgeInsets.only(bottom: 24.0),
                     child: locationField),
               ],
             )),

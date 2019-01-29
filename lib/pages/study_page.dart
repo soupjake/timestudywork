@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:timestudyapp/models/donor.dart';
 import 'package:timestudyapp/models/study.dart';
 import 'package:timestudyapp/pages/donor_page.dart';
+import 'package:timestudyapp/pages/donor_timer_page.dart';
 import 'package:timestudyapp/viewmodels/study_viewmodel.dart';
+import 'package:timestudyapp/widgets/donors_dialog.dart';
 
 class StudyPage extends StatefulWidget {
   final Study selected;
@@ -100,7 +102,7 @@ class StudyPageState extends State<StudyPage> {
                                                 .elapsedTime)),
                                   ],
                                 ),
-                                onTap: () async {
+                                onTap: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -143,25 +145,49 @@ class StudyPageState extends State<StudyPage> {
                             },
                           )
                         : Text('Add a donor using the + button below!'),
-                    IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () async {
-                        setState(() {
-                          study.tasks[taskIndex].donors.add(new Donor(
-                              name: generateName(taskIndex),
-                              date: study.date,
-                              type: study.type,
-                              team: study.team,
-                              location: study.location,
-                              measuredTime: 0,
-                              waitedTime: 0,
-                              elapsedTime: 0,
-                              note: '',
-                              stages: StudyViewModel.copyStages(
-                                  study.tasks[taskIndex])));
-                        });
-                        await StudyViewModel.saveFile();
-                      },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        IconButton(
+                            icon: Icon(Icons.timer),
+                            onPressed: () async {
+                              List<Donor> temp = await showDialog(
+                                  context: context,
+                                  builder: (context) => DonorsDialog(
+                                        selected: study.tasks[taskIndex].donors,
+                                      ));
+                              if (temp != null) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DonorTimerPage(
+                                            selected:
+                                                temp,
+                                            title:
+                                                study.tasks[taskIndex].name)));
+                              }
+                            }),
+                        IconButton(
+                          icon: Icon(Icons.add),
+                          onPressed: () async {
+                            setState(() {
+                              study.tasks[taskIndex].donors.add(new Donor(
+                                  name: generateName(taskIndex),
+                                  date: study.date,
+                                  type: study.type,
+                                  team: study.team,
+                                  location: study.location,
+                                  measuredTime: 0,
+                                  waitedTime: 0,
+                                  elapsedTime: 0,
+                                  note: '',
+                                  stages: StudyViewModel.copyStages(
+                                      study.tasks[taskIndex])));
+                            });
+                            await StudyViewModel.saveFile();
+                          },
+                        )
+                      ],
                     )
                   ],
                 );

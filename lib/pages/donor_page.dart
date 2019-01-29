@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:timestudyapp/models/donor.dart';
-import 'package:timestudyapp/pages/timer_page.dart';
 import 'package:timestudyapp/viewmodels/study_viewmodel.dart';
 
 class DonorPage extends StatefulWidget {
@@ -13,7 +12,7 @@ class DonorPage extends StatefulWidget {
 }
 
 class DonorPageState extends State<DonorPage> {
-  final scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Donor donor;
   TextField noteField;
@@ -174,16 +173,6 @@ class DonorPageState extends State<DonorPage> {
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.timer),
-        onPressed: () async {
-          await Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => TimerPage(selected: donor),
-                  fullscreenDialog: true));
-        },
       ),
     );
   }
